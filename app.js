@@ -1,7 +1,15 @@
 // Listen for submit - pressing the Calculate button
-document
-  .querySelector('#loan-form')
-  .addEventListener('submit', calculateResults);
+document.querySelector('#loan-form').addEventListener('submit', function(e) {
+  // Hide Results
+  document.getElementById('results').style.display = 'none';
+
+  // Show loader once we click on Calculate
+  document.getElementById('loading').style.display = 'block';
+
+  setTimeout(calculateResults, 2000);
+
+  e.preventDefault();
+});
 
 // Calculate results
 function calculateResults(e) {
@@ -35,14 +43,24 @@ function calculateResults(e) {
     uiTotalInterest.value = (monthly * calculatedPayments - principal).toFixed(
       2
     );
+    // Show results
+    document.getElementById('results').style.display = 'block';
+
+    // Hide loader
+    document.getElementById('loading').style.display = 'none';
   } else {
     showError('Please check the inputted numbers');
   }
-  e.preventDefault();
 }
 
 // Show Error func
 function showError(error) {
+  // Hide results
+  document.getElementById('results').style.display = 'none';
+
+  // Hide loader
+  document.getElementById('loading').style.display = 'none';
+
   // create a div showing the error
   const errorDiv = document.createElement('div');
 
